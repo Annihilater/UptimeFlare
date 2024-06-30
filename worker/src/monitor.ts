@@ -16,8 +16,9 @@ export async function getStatus(
   if (monitor.method === 'TCP_PING') {
     // TCP port endpoint monitor
     try {
-      const [hostname, port] = monitor.target.split(':')
-      const socket = connect({ hostname: hostname, port: Number(port) })
+      // This is not a real https connection, but we need to add a dummy `https://` to parse the hostname & port
+      const parsed = new URL("https://" + monitor.target)
+      const socket = connect({ hostname: parsed.hostname, port: Number(parsed.port) })
 
       // Now we have an `opened` promise!
       // @ts-ignore
@@ -56,6 +57,7 @@ export async function getStatus(
 
       if (monitor.expectedCodes) {
         if (!monitor.expectedCodes.includes(response.status)) {
+          console.log(`${monitor.name} expected ${monitor.expectedCodes}, got ${response.status}`)
           status.up = false
           status.err = `Expected codes: ${JSON.stringify(monitor.expectedCodes)}, Got: ${response.status
             }`
@@ -63,6 +65,7 @@ export async function getStatus(
         }
       } else {
         if (response.status < 200 || response.status > 299) {
+          console.log(`${monitor.name} expected 2xx, got ${response.status}`)
           status.up = false
           status.err = `Expected codes: 2xx, Got: ${response.status}`
           return status
@@ -72,6 +75,7 @@ export async function getStatus(
       if (monitor.responseKeyword) {
         const responseBody = await response.text()
         if (!responseBody.includes(monitor.responseKeyword)) {
+          console.log(`${monitor.name} expected keyword ${monitor.responseKeyword}, not found in response (truncated to 100 chars): ${responseBody.slice(0, 100)}`)
           status.up = false
           status.err = "HTTP response doesn't contain the configured keyword"
           return status

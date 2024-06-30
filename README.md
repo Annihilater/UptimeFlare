@@ -1,4 +1,4 @@
-# 📈[UptimeFlare](https://github.com/lyc8503/UptimeFlare)
+# ✔[UptimeFlare](https://github.com/lyc8503/UptimeFlare)
 
 A more advanced, serverless, and free uptime monitoring & status page solution, powered by Cloudflare Workers, complete with a user-friendly interface.
 
@@ -11,6 +11,7 @@ A more advanced, serverless, and free uptime monitoring & status page solution, 
   - Up to 90-day uptime history and uptime percentage tracking
   - Customizable request methods, headers, and body for HTTP(s)
   - Custom status code & keyword checks for HTTP(s)
+  - Downtime notification supporting [100+ notification channels](https://github.com/caronc/apprise/wiki)
   - Customizable Webhook
 - Status page
   - Interactive ping (response time) chart for all types of monitors
@@ -28,17 +29,19 @@ Some screenshots:
 
 ## ⚡Quickstart / 📄Documentation
 
-Please refer to [Quickstart](https://github.com/lyc8503/UptimeFlare/wiki/Quickstart) and [Wiki](https://github.com/lyc8503/UptimeFlare/wiki)
+Please refer to [Wiki](https://github.com/lyc8503/UptimeFlare/wiki)
 
 ## New features (TODOs)
 
 - [x] Specify region for monitors
 - [x] TCP `opened` promise
-- [x] Telegram example
-- [x] [Bark](https://bark.day.app) example
-- [ ] Improve docs by providing simple examples
-- [ ] Notification grace period
+- [x] Use apprise to support various notification channels
+- [x] ~~Telegram example~~
+- [x] ~~[Bark](https://bark.day.app) example~~
+- [x] ~~Email notification via Cloudflare Email Workers~~
+- [x] Improve docs by providing simple examples
+- [x] Notification grace period
 - [ ] SSL certificate checks
 - [ ] Self-host Dockerfile
-- [ ] Email notification via Cloudflare Email Workers
 - [ ] Incident timeline
+- [x] Remove old incidents
